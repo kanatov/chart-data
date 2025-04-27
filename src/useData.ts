@@ -1,8 +1,6 @@
 import { useState } from "react";
 import type { Response } from "./types";
 
-const domain = "http://localhost:3000";
-
 const useData = () => {
   const [data, setData] = useState<Response>([]);
 
@@ -10,7 +8,7 @@ const useData = () => {
     try {
       // Simulate delay with setTimeout
       setTimeout(async () => {
-        const response = await fetch(`${domain}/data.json`);
+        const response = await fetch(`/data.json`);
         const jsonData = await response.json();
         setData(jsonData);
       }, 2000);

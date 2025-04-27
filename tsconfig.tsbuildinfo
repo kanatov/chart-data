@@ -1,0 +1,1 @@
+{"root":["./src/app.test.tsx","./src/app.tsx","./src/chart.test.tsx","./src/chart.tsx","./src/table.test.tsx","./src/table.tsx","./src/dayjs.ts","./src/main.tsx","./src/react-app-env.d.ts","./src/types.ts","./src/usedata.ts","./src/vite-env.d.ts"],"version":"5.7.3"}
