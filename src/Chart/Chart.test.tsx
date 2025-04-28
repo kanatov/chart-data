@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Table from "./Table";
-import type { Response } from "./types";
+import Chart from "./Chart";
+import type { Response } from "../types";
 
 const mockData: Response = [
   {
@@ -23,18 +23,20 @@ const mockData: Response = [
   },
 ];
 
-describe("Table", () => {
-  it("renders a table", () => {
-    render(<Table data={mockData} />);
-
-    expect(screen.getByText("App Name")).toBeInTheDocument();
+describe("Chart", () => {
+  it("renders a chart", () => {
+    render(<Chart data={mockData} />);
     expect(screen.getByText("Downloads")).toBeInTheDocument();
   });
 
-  it("does not render a table if data is empty", () => {
-    render(<Table data={[]} />);
+  it("renders the title and subtitle", () => {
+    render(<Chart data={mockData} />);
+    expect(screen.getByText("Downloads by App")).toBeInTheDocument();
+    expect(screen.getByText("TODO")).toBeInTheDocument();
+  });
 
-    expect(screen.queryByText("App Name")).not.toBeInTheDocument();
+  it("does not render a chart if data is empty", () => {
+    render(<Chart data={[]} />);
     expect(screen.queryByText("Downloads")).not.toBeInTheDocument();
   });
 });

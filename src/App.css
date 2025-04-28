@@ -1,3 +1,7 @@
-.container {
-  margin: 25px;
+main {
+  padding-block: 0.7rem;
+  padding-inline: 0.4rem;
+}
+p {
+  margin: 0;
 }

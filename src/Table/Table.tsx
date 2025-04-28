@@ -1,5 +1,5 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import type { Response } from "./types";
+import type { Response } from "../types";
 
 type TableProps = {
   data: Response;
