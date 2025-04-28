@@ -11,7 +11,6 @@ export default function Filter() {
           { label: "Downloads", value: "downloads" },
           { label: "Revenue", value: "revenue" },
         ]}
-        onChange={() => {}}
       />
     </search>
   );

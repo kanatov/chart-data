@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup, {
-  ToggleButtonGroupProps,
-} from "@mui/material/ToggleButtonGroup";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey, cyan } from "@mui/material/colors";
-import { fontGrid } from "@mui/material/styles/cssUtils";
+import { useFilterContext, type FilterType } from "../Context/FilterContext";
 
 interface ToggleInterface {
   label: string;
@@ -14,7 +12,6 @@ interface ToggleInterface {
 
 interface ToggleGroupInterface {
   options: ToggleInterface[];
-  onChange: (selectedValue: string | null) => void;
 }
 
 const toggleGroupTheme = createTheme({
@@ -52,22 +49,26 @@ const toggleGroupTheme = createTheme({
   },
 });
 
-export default function ToggleGroup({
-  options,
-  onChange,
-}: ToggleGroupInterface) {
+export default function ToggleGroup({ options }: ToggleGroupInterface) {
   if (options.length === 0) {
     console.error("No options provided to ToggleGroup");
     return null;
   }
+  const { setFilter } = useFilterContext();
+
   const [selectedValue, setSelectedValue] = useState<string>(options[0].value);
+  useEffect(() => {
+    setFilter((prev: FilterType) => ({
+      ...prev,
+      chart: selectedValue,
+    }));
+  }, [selectedValue, setFilter]);
   const handleChange = (
     _event: React.MouseEvent<HTMLElement>,
     newValue: string | null
   ) => {
     if (newValue === null) return;
     setSelectedValue(newValue);
-    onChange(newValue);
   };
 
   return (

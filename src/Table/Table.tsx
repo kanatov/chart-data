@@ -1,9 +1,5 @@
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import type { Response } from "../types";
-
-type TableProps = {
-  data: Response;
-};
+import { useFilterContext } from "../Context/FilterContext";
 
 type RowProps = {
   id: number;
@@ -11,9 +7,15 @@ type RowProps = {
   downloads: number;
 };
 
-const Table = ({ data }: TableProps) => {
+export default function Table() {
+  const { filteredData: data, loading } = useFilterContext();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   if (!data.length) {
-    return null;
+    return <div>No data</div>;
   }
 
   const columns: GridColDef<RowProps>[] = [
@@ -36,6 +38,4 @@ const Table = ({ data }: TableProps) => {
       <DataGrid rows={rows} columns={columns} />
     </div>
   );
-};
-
-export default Table;
+}

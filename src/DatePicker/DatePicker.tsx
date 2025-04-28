@@ -3,7 +3,14 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker as MUIDatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./DatePicker.css";
-export default function DatePicker({ children }) {
+import { useFilterContext } from "../Context/FilterContext";
+
+interface DatePickerInterface {
+  children: React.ReactNode;
+}
+
+export default function DatePicker({ children }: DatePickerInterface) {
+  const { setFilter } = useFilterContext();
   const [value, setValue] = useState<Dayjs | null>(dayjs("2020-01-01"));
   return (
     <div className="date-picker">

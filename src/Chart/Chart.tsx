@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import type { Response } from "../types";
 import { dayjsUtc } from "../dayjs";
+import { useFilterContext } from "../Context/FilterContext";
 
-type ChartProps = {
-  data: Response;
-};
-
-const Chart = ({ data }: ChartProps) => {
+const Chart = () => {
+  const { filteredData: data, loading } = useFilterContext();
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (!data.length) {
+    return <div>No data</div>;
+  }
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
   const [seriesData, setSeriesData] = useState<Highcharts.SeriesOptionsType[]>(
     []
@@ -31,10 +34,6 @@ const Chart = ({ data }: ChartProps) => {
     });
     setSeriesData(newSeriesData);
   }, [data]);
-
-  if (!seriesData.length) {
-    return null;
-  }
 
   const options: Highcharts.Options = {
     title: {
