@@ -1,0 +1,10 @@
+.table-game-icon {
+  display: flex;
+  align-items: stretch;
+  justify-content: start;
+  height: 100%;
+  img {
+    padding: 0.3rem;
+    padding-left: 0;
+  }
+}

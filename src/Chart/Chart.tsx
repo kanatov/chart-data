@@ -22,7 +22,7 @@ const DATA_INDEX = {
 
 const SUBTITLE_DATE_FORMAT = "MMM DD, YYYY";
 
-const Chart = () => {
+export default function Chart() {
   const { filter, dataRange, filteredData: data, loading } = useFilterContext();
   if (loading) return <div>Loading...</div>;
   if (!data.length) return <div>No data</div>;
@@ -99,6 +99,4 @@ const Chart = () => {
       ref={chartComponentRef}
     />
   );
-};
-
-export default Chart;
+}

@@ -2,6 +2,13 @@ main {
   padding-block: 0.7rem;
   padding-inline: 0.4rem;
 }
-p {
+div {
+  font-weight: inherit;
+}
+p,
+img,
+figcaption,
+figure {
   margin: 0;
+  padding: 0;
 }

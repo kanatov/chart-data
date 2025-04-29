@@ -44,8 +44,6 @@ function filterData(
     if (newData.length) acc.push({ ...item, data: newData });
     return acc;
   }, []);
-  console.dir(filteredData);
-
   return filteredData;
 }
 
