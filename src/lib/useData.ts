@@ -1,8 +1,8 @@
 import { useState } from "react";
-import type { SalesData } from "./types";
+import type { TSalesData } from "./types";
 
 interface UseDataInterface {
-  data: SalesData[];
+  data: TSalesData[];
   loading: boolean;
 }
 

@@ -1,43 +1,55 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-} from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import useData from "../lib/useData";
-import type { SalesData } from "../lib/types";
+import { type TSalesData, type TDateRange, EChartType } from "../lib/types";
 
-export type FilterType = {
-  chart: string;
-  dateRange: [string, string];
-};
+const CHART = EChartType.Downloads;
+const FILTER_RANGE = { start: "2020-01-01", end: "2020-01-07" };
 
-interface FilterContextType {
-  setFilter: Dispatch<SetStateAction<FilterType>>;
-  filteredData: SalesData[];
+interface IFilter {
+  chart: EChartType;
+  dateRange: TDateRange;
+}
+
+interface IFilterContext {
+  filter: IFilter;
+  filteredData: TSalesData[];
+  setDateRange: (range: TDateRange) => void;
+  setChart: (chart: EChartType) => void;
   loading: boolean;
 }
 
-const FilterContext = createContext<FilterContextType | null>(null);
+interface IFilterProvider {
+  children: ReactNode;
+}
+const FilterContext = createContext<IFilterContext | null>(null);
 
-export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const { data: rawData, loading } = useData();
-  const [filter, setFilter] = useState<FilterType>({
-    chart: "Downloads",
-    dateRange: ["2020-01-01", "2020-07-01"],
+export function FilterProvider({ children }: IFilterProvider) {
+  const [filter, setFilter] = useState<IFilter>({
+    chart: CHART,
+    dateRange: FILTER_RANGE,
   });
+
+  const setDateRange = ({ start, end }: TDateRange) => {
+    if (new Date(start) <= new Date(end)) {
+      const newDateRange = { start, end };
+      setFilter((prev) => ({ ...prev, dateRange: newDateRange }));
+    }
+  };
+
+  const setChart = (chart: EChartType) => {
+    setFilter((prev) => ({ ...prev, chart }));
+  };
+
+  const { data: rawData, loading } = useData();
 
   return (
     <FilterContext.Provider
-      value={{ setFilter, filteredData: rawData, loading }}
+      value={{ filter, setDateRange, setChart, filteredData: rawData, loading }}
     >
       {children}
     </FilterContext.Provider>
   );
-};
+}
 
 export const useFilterContext = () => {
   const ctx = useContext(FilterContext);

@@ -3,7 +3,8 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { grey, cyan } from "@mui/material/colors";
-import { useFilterContext, type FilterType } from "../Context/FilterContext";
+import { useFilterContext } from "../Context/FilterContext";
+import { EChartType } from "../lib/types";
 
 interface ToggleInterface {
   label: string;
@@ -54,22 +55,20 @@ export default function ToggleGroup({ options }: ToggleGroupInterface) {
     console.error("No options provided to ToggleGroup");
     return null;
   }
-  const { setFilter } = useFilterContext();
+  const { filter, setChart } = useFilterContext();
 
-  const [selectedValue, setSelectedValue] = useState<string>(options[0].value);
-  useEffect(() => {
-    setFilter((prev: FilterType) => ({
-      ...prev,
-      chart: selectedValue,
-    }));
-  }, [selectedValue, setFilter]);
+  const [selectedValue, setSelectedValue] = useState<EChartType>(filter.chart);
+
   const handleChange = (
     _event: React.MouseEvent<HTMLElement>,
-    newValue: string | null
+    newValue: EChartType
   ) => {
-    if (newValue === null) return;
-    setSelectedValue(newValue);
+    setChart(newValue);
   };
+
+  useEffect(() => {
+    setSelectedValue(filter.chart);
+  }, [filter.chart]);
 
   return (
     <ThemeProvider theme={toggleGroupTheme}>
