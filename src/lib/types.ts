@@ -1,11 +1,14 @@
-export type TSalesData = {
+export interface ISalesData {
   id: number;
   name: string;
   icon: string;
   data: [date: string, downloads: number, revenue: number][];
-};
+}
 
-export type TDateRange = { start: string; end: string };
+export interface IDateRange {
+  start: string;
+  end: string;
+}
 
 export enum EChartType {
   Downloads = "downloads",

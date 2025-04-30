@@ -1,7 +1,8 @@
+import { ReactNode } from "react";
 import "./TableGameIcon.css";
 
 interface ITableGameIcon {
-  children: React.ReactNode;
+  children: ReactNode;
   icon: string;
   alt: string;
 }

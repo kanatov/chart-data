@@ -1,14 +1,15 @@
+import { ReactNode } from "react";
 import { useState, useEffect } from "react";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import dayjs, { Dayjs } from "dayjs";
 import { DatePicker as MUIDatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./DatePicker.css";
 import { useFilterContext } from "../Context/FilterContext";
-import { type TDateRange } from "../lib/types";
+import { type IDateRange } from "../lib/types";
 
 interface IDatePicker {
-  children: React.ReactNode;
-  name: keyof TDateRange;
+  children: ReactNode;
+  name: keyof IDateRange;
 }
 
 export default function DatePicker({ children, name }: IDatePicker) {

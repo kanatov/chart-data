@@ -3,14 +3,14 @@ import { useFilterContext } from "../Context/FilterContext";
 import TableGameIcon from "../TableGameIcon/TableGameIcon";
 import "./Table.css";
 
-type RowProps = {
+interface IRowProps {
   id: number;
   icon: string;
   appName: string;
   downloads: number;
   revenue: number;
   rdp: number;
-};
+}
 
 export default function Table() {
   const { filteredData: data, loading } = useFilterContext();
@@ -18,7 +18,7 @@ export default function Table() {
   if (loading) return <div>Loading...</div>;
   if (!data.length) return <div>No data</div>;
 
-  const columns: GridColDef<RowProps>[] = [
+  const columns: GridColDef<IRowProps>[] = [
     {
       field: "appName",
       headerName: "App Name",
@@ -78,7 +78,7 @@ export default function Table() {
       return acc + dataRaw[2];
     }, 0);
     const rdp = downloads && revenue ? revenue / downloads : 0;
-    const row: RowProps = {
+    const row: IRowProps = {
       id: appData.id,
       icon: appData.icon,
       appName: appData.name,

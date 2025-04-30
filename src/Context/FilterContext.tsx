@@ -1,20 +1,20 @@
 import { createContext, useContext, useState, ReactNode, useMemo } from "react";
 import useData from "../lib/useData";
-import { type TSalesData, type TDateRange, EChartType } from "../lib/types";
+import { type ISalesData, type IDateRange, EChartType } from "../lib/types";
 
 const CHART = EChartType.Downloads;
 const FILTER_RANGE = { start: "2020-01-01", end: "2020-01-07" };
 
 interface IFilter {
   chart: EChartType;
-  dateRange: TDateRange;
+  dateRange: IDateRange;
 }
 
 interface IFilterContext {
   filter: IFilter;
-  filteredData: TSalesData[];
-  dataRange: TDateRange;
-  setDateRange: (range: TDateRange) => void;
+  filteredData: ISalesData[];
+  dataRange: IDateRange;
+  setDateRange: (range: IDateRange) => void;
   setChart: (chart: EChartType) => void;
   loading: boolean;
 }
@@ -26,9 +26,9 @@ interface IFilterProvider {
 const FilterContext = createContext<IFilterContext | null>(null);
 
 function filterData(
-  data: TSalesData[],
-  { start, end }: TDateRange
-): TSalesData[] {
+  data: ISalesData[],
+  { start, end }: IDateRange
+): ISalesData[] {
   if (!data || !start || !end) {
     console.error("Invalid data or date range");
     return [];
@@ -36,7 +36,7 @@ function filterData(
   const startDate = new Date(start);
   const endDate = new Date(end);
 
-  const filteredData = data.reduce<TSalesData[]>((acc, item) => {
+  const filteredData = data.reduce<ISalesData[]>((acc, item) => {
     const newData = item.data.filter((dataRow) => {
       const date = new Date(dataRow[0]);
       return date >= startDate && date <= endDate;
@@ -55,7 +55,7 @@ export function FilterProvider({ children }: IFilterProvider) {
   });
 
   // Setters
-  const setDateRange = ({ start, end }: TDateRange) => {
+  const setDateRange = ({ start, end }: IDateRange) => {
     const prev = filter.dateRange;
     if (prev.start === start && prev.end === end) return;
     if (new Date(start) < new Date(end)) {
