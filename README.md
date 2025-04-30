@@ -41,11 +41,17 @@ but the most complicated part was to implement the observer pattern and state ma
 | `npm run lint`     | Lint errors check                            |
 | ~~`npm run test`~~ | Tests were removed due to lack of time       |
 
-## Implementation notes
-
 ## The next steps
 
-- I would like to recover the removed tests and make them work with react context. It was difficult to make them work due to many errors happending because of the setup or project configuration.
-- Most exciting reason to keep working on this task is to decrease the ammount of re-renders to minimum so if I chage the date it will affect only the elements that needs to be re-rendered and nothing else.
+I ran out of time but see a plenty of areas for improvements:
+
+**Recover tests**
+First of all I would like to restore the tests and wrap the elements to the context provider. In the current version running the test trigger a rabbit hole of errors so I had to cut them out.
+
+**Optimised re-renders**
+One of the exciting task to do is to decrease the ammount of re-renders to minimum so if I chage the date it will affect only the elements that needs to be re-rendered and nothing else.
+  
+**Input edge cases**
+In addition to that filter has many edge cases that needs to be covered. Currently I make sure the start date of the range is less (and not equal) to the end date. The wrong range is not possible to set but the dates are still available to chose from the calendar and they are not reflecting the data boundries.
 
 ## Thank you!
